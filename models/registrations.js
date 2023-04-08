@@ -12,14 +12,14 @@ const RegistrationSchema = mongoose.Schema({
     email:{
         type: String,
         required: true
-    },
-    pwd:{
-        type: String,
-        required: true
-    },
-    cpwd:{
-        type: String,
-        required: true
     }
+    // pwd:{
+    //     type: String,
+    //     required: true
+    // },
+    // cpwd:{
+    //     type: String,
+    //     required: true
+    // }
 });
 const Registration = module.exports = mongoose.model('Registration',RegistrationSchema);

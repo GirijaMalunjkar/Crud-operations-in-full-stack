@@ -6,7 +6,6 @@ const path = require('path');
 
 const app = express();
 const route = require('./routes/routes');
-const { log } = require('console');
 
 mongoose.connect('mongodb://0.0.0.0:27017');
 
