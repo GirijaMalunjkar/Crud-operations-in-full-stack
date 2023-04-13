@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const User = require('../models/Users');
+const User = require('../models/userdb');
 
 //Retriving
 router.get('/User', async (req, res, next) => {
@@ -16,13 +16,29 @@ router.get('/User', async (req, res, next) => {
 
 });
 
+//Retriving
+router.post('/UserLogin', async (req, res, next) => {
+    console.log("111",req.body);
+    const result = await User.find({name:req.body.name});//get user by name
+    console.log('222>>Result', result);
+
+    if (result.err) {
+        res.json(result.err);
+    }
+    else if(result.length>0 && result[0].password===req.body.password) {//check if there is any user returned by db & match password
+        res.json(result);//if password correct send user data as response
+    } else {
+        res.json({err:'login failed'});//if wrong password send err msg 
+    }
+
+});
+
 // Add
 router.post("/User", async (req, res, next) => {
     console.log(req.body);
 
     let newUser = new User({
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
+        name: req.body.name,
         email: req.body.email,
         password: req.body.password
     });
@@ -37,12 +53,12 @@ router.post("/User", async (req, res, next) => {
 
 //Delete
 router.delete('/User/:id', async (req, res, next) => {
-    const result = await User.remove({ _id: req.params.id })
+    const result = await User.deleteOne({ _id: req.params.id })
     if (result.err) {
         res.json(result.err);
     }
     else {
-        res.json(result.deleted);
+        res.json(result);
     }
 });
 module.exports = router;

@@ -1,0 +1,12 @@
+REGISTRATION
+1.fill user details in reg form
+2.click submit
+3.check if data is valid/validation
+4.send data to api
+5.save data to db
+6.send response that data is saved successfully
+7.show message to user that registration is successful
+
+front: 1,2,3,4,7
+back: 5,6
+

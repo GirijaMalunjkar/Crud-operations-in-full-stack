@@ -2,82 +2,85 @@ import React, { useState } from "react";
 import "./login.css";
 
 function LoginForm() {
-  // React States
-  const [errorMsg, setErrorMsg] = useState({});
-  const [isSubmite, setIsSubmite] = useState(false);
+  // React States for checking the error
+  const [error, setError] = useState({});
+  const [submitted, setSubmitted] = useState(false);
 
-  // User Login info
-  const database = [
-    {
-      username: "user1",
-      password: "pass1"
-    },
-    {
-      username: "user2",
-      password: "pass2"
-    }
-  ];
+  //State for login
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
 
-  const errors = {
-    uname: "invalid username",
-    pass: "invalid password"
+  // Handling the name change
+  const handleName = (e) => {
+    setName(e.target.value);
+    setSubmitted(false);
   };
 
-  const handleSubmit = (event) => {
-    //Prevent page reload
-    event.preventDefault();
+  // Handling the password change
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+    setSubmitted(false);
+  };
 
-    var { uname, pass } = document.forms[0];
-
-    // Find user login info
-    const userData = database.find((user) => user.username === uname.value);
-
-    // Compare user info
-    if (userData) {
-      if (userData.password !== pass.value) {
-        // Invalid password
-        setErrorMsg({ name: "pass", message: errors.pass });
-      } else {
-        setIsSubmite(true);
-      }
+  // Handling the form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (name === '' || password === '') {
+      setError(true);
     } else {
-      // Username not found
-      setErrorMsg({ name: "uname", message: errors.uname });
+      //send data to api
+      fetch('http://localhost:3000/api/UserLogin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: name,
+          password: password
+        }),
+      })
+        .then(response => {
+          const j = response.json();
+          console.log(j);
+          return j;
+        })
+        .then(d => {
+          console.log(d);
+          if (d.msg === 'Added') {
+            setSubmitted(true);
+            setError(false);
+          } else {
+            setSubmitted(true);
+            setError(true);
+          }
+        })
+        .catch(error => console.error(error));
     }
   };
-
-  // Generate JSX code for error message
-  const renderErrorMsg = (name) =>
-    name === errorMsg.name && (
-      <div className="error">{errorMsg.message}</div>
-    );
 
   // JSX code for login form
-  const renderForm = (
-    <div className="form">
-      <form onSubmit={handleSubmit}>
-        <div className="input-container">
-          <label>Username </label>
-          <input type="text" name="uname" required />
-          {renderErrorMsg("uname")}
-        </div>
-        <div className="input-container">
-          <label>Password </label>
-          <input type="password" name="pass" required />
-          {renderErrorMsg("pass")}
-        </div>
-        <div className="button-container">
-          <input type="submit" />
-        </div>
-      </form>
-    </div>
-  );
-
   return (
     <div className="login">
       <div className="login-form">
         <div className="title">Log In</div>
-        {isSubmite ? <div>User is successfully logged in</div> : renderForm}
+        <div className="form">
+          {submitted ?
+            error ? "Invalid User Name or Password " : "Logged In Successfully" :
+            <form>
+              <div className="input-container">
+                <label> User Name </label>
+                <input onChange={handleName} type="text" name="name" required />
+              </div>
+              <div className="input-container">
+                <label>Password </label>
+                <input onChange={handlePassword} type="password" name="pass" required />
+              </div>
+              <div className="button-container">
+                <input onClick={handleSubmit} type="submit" />
+              </div>
+            </form>
+          }
+        </div>
       </div>
     </div>
   );
