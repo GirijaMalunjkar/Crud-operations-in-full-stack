@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./registration.css";
-import LoginForm from "./login";
+import { Link } from "react-router-dom";
 
 function RegistrationForm() {
   // React States for checking the error
@@ -92,7 +92,7 @@ function RegistrationForm() {
                 <input onClick={handleSubmit} type="submit" />
               </div>
               <div className="Login">
-                <span onClick={LoginForm}>Or Log In Your Account</span>
+                <Link to="/login">Or Log In Your Account</Link>
               </div>
             </form>
           }

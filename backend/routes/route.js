@@ -26,9 +26,9 @@ router.post('/UserLogin', async (req, res, next) => {
         res.json(result.err);
     }
     else if(result.length>0 && result[0].password===req.body.password) {//check if there is any user returned by db & match password
-        res.json({msg:'Loged in Successful'});//if password correct send user data as response
+        res.json({msg:'Logged in Successful', loginSuccess:true});//if password correct send user data as response
     } else {
-        res.json({msg:'login failed'});//if wrong password send err msg 
+        res.json({msg:'login failed', loginSuccess:false});//if wrong password send err msg 
     }
 
 });

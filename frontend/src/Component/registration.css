@@ -62,8 +62,3 @@ input[type="submit"]:hover {
   gap: 8px;
   margin: 10px;
 }
-.login>span {
-  margin-top: 5px;
-  font-size: 10px;
-  color: gray;
-}

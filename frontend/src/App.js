@@ -1,14 +1,20 @@
-import React from "react";
-import RegistrationForm from "./Component/registration";
-import LoginForm from "./Component/login";
+import Navbar from "./Component/navbar";
+import { Route, Routes } from "react-router-dom";
+import RegistrationForm from "./Component/registration"
+import LoginForm from "./Component/login"
 
 function App() {
   return (
-    <div className="app">
-     <RegistrationForm/>
-     <LoginForm/>
-    </div>
-  );
+    <>
+      <Navbar />
+      <div className="container">
+        <Routes>
+          <Route path="/" element={<RegistrationForm />} />
+          <Route path="/login" element={<LoginForm />} />
+        </Routes>
+      </div>
+    </>
+  )
 }
 
-export default App;
+export default App

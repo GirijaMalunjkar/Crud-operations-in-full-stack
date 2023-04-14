@@ -45,8 +45,8 @@ function LoginForm() {
           return j;
         })
         .then(d => {
-          console.log(d);
-          if (d.msg === 'added') {
+          console.log('1111',d);
+          if (d.loginSuccess) {
             setSubmitted(true);
             setError(false);
           } else {
@@ -60,7 +60,7 @@ function LoginForm() {
 
   // JSX code for login form
   return (
-    <div className="login">
+    <div id="loginPage" className="login">
       <div className="login-form">
         <div className="title">Log In</div>
         <div className="form">
