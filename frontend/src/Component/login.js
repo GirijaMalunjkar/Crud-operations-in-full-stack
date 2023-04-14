@@ -29,7 +29,7 @@ function LoginForm() {
       setError(true);
     } else {
       //send data to api
-      fetch('http://localhost:3000/api/UserLogin', {
+      fetch('http://localhost:8080/api/UserLogin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -46,7 +46,7 @@ function LoginForm() {
         })
         .then(d => {
           console.log(d);
-          if (d.msg === 'Added') {
+          if (d.msg === 'added') {
             setSubmitted(true);
             setError(false);
           } else {

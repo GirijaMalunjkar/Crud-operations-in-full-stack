@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./registration.css";
+import LoginForm from "./login";
 
 function RegistrationForm() {
   // React States for checking the error
@@ -36,7 +37,7 @@ function RegistrationForm() {
       setError(true);
     } else {
       //send data to api
-      fetch('http://localhost:3000/api/User', {
+      fetch('http://localhost:8080/api/User', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -89,6 +90,9 @@ function RegistrationForm() {
               </div>
               <div className="button-container">
                 <input onClick={handleSubmit} type="submit" />
+              </div>
+              <div className="Login">
+                <span onClick={LoginForm}>Or Log In Your Account</span>
               </div>
             </form>
           }

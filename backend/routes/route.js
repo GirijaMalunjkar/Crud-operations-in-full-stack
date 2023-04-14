@@ -16,7 +16,7 @@ router.get('/User', async (req, res, next) => {
 
 });
 
-//Retriving
+//Login Api
 router.post('/UserLogin', async (req, res, next) => {
     console.log("111",req.body);
     const result = await User.find({name:req.body.name});//get user by name
@@ -26,9 +26,9 @@ router.post('/UserLogin', async (req, res, next) => {
         res.json(result.err);
     }
     else if(result.length>0 && result[0].password===req.body.password) {//check if there is any user returned by db & match password
-        res.json(result);//if password correct send user data as response
+        res.json({msg:'Loged in Successful'});//if password correct send user data as response
     } else {
-        res.json({err:'login failed'});//if wrong password send err msg 
+        res.json({msg:'login failed'});//if wrong password send err msg 
     }
 
 });

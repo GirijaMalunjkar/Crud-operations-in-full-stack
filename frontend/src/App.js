@@ -5,7 +5,7 @@ import LoginForm from "./Component/login";
 function App() {
   return (
     <div className="app">
-     {/* <RegistrationForm/> */}
+     <RegistrationForm/>
      <LoginForm/>
     </div>
   );
